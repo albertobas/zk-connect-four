@@ -62,7 +62,7 @@ export function EnabledVerifyButton({
         <FetchEvents
           abi={abi}
           address={address as Address}
-          blockNumber={blockNumber ?? BigInt('0n')}
+          blockNumber={blockNumber ?? BigInt(0)}
           isWriteContractResultSuccess={isSuccess}
           resetWriteContractResult={reset}
           writeContractResult={data}
