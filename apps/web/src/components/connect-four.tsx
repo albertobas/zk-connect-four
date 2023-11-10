@@ -85,7 +85,7 @@ export function ConnectFour({ mode }: { mode: ConnectFourMode }): JSX.Element {
         >
           New game
         </Button>
-        <VerifyButton networkName={networkName} />
+        <VerifyButton />
       </div>
       <Modal
         className={modalStyles.modal}

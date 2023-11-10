@@ -3,14 +3,13 @@ import { Button, useToast, type Toast } from 'ui';
 import { useAppSelector } from '../hooks';
 import { connectFourSelector } from '../state';
 import { generateProof } from '../utils';
-import type { ConnectFourWinner, Network } from '../types/connect-four';
+import type { ConnectFourWinner } from '../types/connect-four';
 import { FetchEvents } from './fetch-events';
 
 interface VerifyProps {
   abi: any;
   address: Address;
   chainId: number;
-  networkName: Network;
   winner: ConnectFourWinner;
 }
 

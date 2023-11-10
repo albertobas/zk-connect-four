@@ -5,15 +5,11 @@ import type { Abi } from 'viem';
 import { useIsMounted } from 'ui';
 import { useAppSelector } from '../hooks';
 import { connectFourSelector } from '../state';
-import type { Network } from '../types/connect-four';
+import { isInstanceOfNetwork } from '../helpers';
 import { EnabledVerifyButton } from './enabled-verify-button';
 import { DisabledVerifyButton } from './disabled-verify-button';
 
-export function VerifyButton({
-  networkName
-}: {
-  networkName: Network;
-}): JSX.Element {
+export function VerifyButton(): JSX.Element {
   const { winner, status } = useAppSelector(connectFourSelector);
   const isMounted = useIsMounted();
   const [contractData, setContractData] = useState<{
@@ -21,6 +17,14 @@ export function VerifyButton({
     address: Address;
   } | null>(null);
   const { chain } = useNetwork();
+
+  const networkName = process.env.NEXT_PUBLIC_NETWORK_NAME;
+
+  if (!isInstanceOfNetwork(networkName)) {
+    throw new Error(
+      'Either the network is not defined or it is different to Sepolia or Localhost'
+    );
+  }
 
   useEffect(() => {
     async function getJSON(): Promise<void> {
@@ -90,7 +94,6 @@ export function VerifyButton({
       abi={abi}
       address={address}
       chainId={chain.id}
-      networkName={networkName}
       winner={winner}
     />
   );
