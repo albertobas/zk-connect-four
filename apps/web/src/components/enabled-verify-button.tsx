@@ -4,26 +4,24 @@ import { useAppSelector } from '../hooks';
 import { connectFourSelector } from '../state';
 import { generateProof } from '../utils';
 import type { ConnectFourWinner } from '../types/connect-four';
+import * as json from '../generated/sepolia.json';
 import { FetchEvents } from './fetch-events';
 
 interface VerifyProps {
-  abi: any;
-  address: Address;
   chainId: number;
   winner: ConnectFourWinner;
 }
 
 export function EnabledVerifyButton({
-  abi,
-  address,
   chainId,
   winner
 }: VerifyProps): JSX.Element {
   const { board } = useAppSelector(connectFourSelector);
+  const { abi, address } = json.contracts.ZKConnectFour;
   const { write, data, isLoading, isError, isSuccess, reset } =
     useContractWrite({
       abi,
-      address,
+      address: address as Address,
       functionName: 'verifyProof',
       chainId
     });
@@ -63,7 +61,7 @@ export function EnabledVerifyButton({
       {isSuccess && !isBlockLoading ? (
         <FetchEvents
           abi={abi}
-          address={address}
+          address={address as Address}
           blockNumber={blockNumber ?? BigInt('0n')}
           isWriteContractResultSuccess={isSuccess}
           resetWriteContractResult={reset}

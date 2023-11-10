@@ -1,7 +1,5 @@
-import { useNetwork, type Address } from 'wagmi';
+import { useNetwork } from 'wagmi';
 import { sepolia, localhost } from 'wagmi/chains';
-import { useEffect, useState } from 'react';
-import type { Abi } from 'viem';
 import { useIsMounted } from 'ui';
 import { useAppSelector } from '../hooks';
 import { connectFourSelector } from '../state';
@@ -12,10 +10,6 @@ import { DisabledVerifyButton } from './disabled-verify-button';
 export function VerifyButton(): JSX.Element {
   const { winner, status } = useAppSelector(connectFourSelector);
   const isMounted = useIsMounted();
-  const [contractData, setContractData] = useState<{
-    abi: Abi;
-    address: Address;
-  } | null>(null);
   const { chain } = useNetwork();
 
   const networkName = process.env.NEXT_PUBLIC_NETWORK_NAME;
@@ -25,21 +19,6 @@ export function VerifyButton(): JSX.Element {
       'Either the network is not defined or it is different to Sepolia or Localhost'
     );
   }
-
-  useEffect(() => {
-    async function getJSON(): Promise<void> {
-      if (networkName === 'localhost') {
-        const json = await import('../generated/localhost.json');
-        const { abi, address } = json.contracts.ZKConnectFour;
-        setContractData({ abi: abi as Abi, address: address as Address });
-      } else {
-        const json = await import('../generated/sepolia.json');
-        const { abi, address } = json.contracts.ZKConnectFour;
-        setContractData({ abi: abi as Abi, address: address as Address });
-      }
-    }
-    getJSON(); // eslint-disable-line -- allow floating promise
-  }, [networkName]);
 
   if (!isMounted) {
     return <DisabledVerifyButton title="Mounting" />;
@@ -81,20 +60,5 @@ export function VerifyButton(): JSX.Element {
     );
   }
 
-  if (contractData === null) {
-    return (
-      <DisabledVerifyButton title="Contract's ABI and address could not be loaded" />
-    );
-  }
-
-  const { abi, address } = contractData;
-
-  return (
-    <EnabledVerifyButton
-      abi={abi}
-      address={address}
-      chainId={chain.id}
-      winner={winner}
-    />
-  );
+  return <EnabledVerifyButton chainId={chain.id} winner={winner} />;
 }
