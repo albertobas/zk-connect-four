@@ -46,7 +46,7 @@ $ pnpm install
 $ pnpm dev
 ```
 
-If you'd like to run this application locally and deploy the contracts on a local node, replace `sepolia` for `localhost` in the `NEXT_PUBLIC_NETWORK_NAME` environment variable and run:
+If you'd like to run this application locally and deploy the contracts on a local node, replace `sepolia` for `localhost` in the `NEXT_PUBLIC_NETWORK_NAME` environment variable (and import the corresponding contract ABI and address in `apps/web/src/components/enabled-verify-button.tsx` after deploying the contracts locally and exporting the data) and run:
 
 ```bash
 $ pnpm node
