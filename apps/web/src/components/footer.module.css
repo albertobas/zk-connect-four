@@ -1,0 +1,51 @@
+.footer {
+  margin: 1rem 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  width: 40px;
+  height: 20px;
+  margin: 1rem 0 10px;
+  display: block;
+  outline: none;
+  border: 0;
+  overflow: visible;
+  font-size: 3rem;
+  cursor: ne-resize;
+  fill: var(--gray-800);
+  transition: fill 0.25s;
+}
+
+.footer > p {
+  margin: 1rem 0 0;
+  @mixin $text-base;
+}
+
+.footer > p > a {
+  cursor: ne-resize;
+}
+
+.logo:hover {
+  fill: #066dd3;
+}
+
+@media screen and (max-width: 650px) {
+  .logo {
+    width: 36px;
+    height: 18px;
+  }
+
+  .footer > p {
+    @mixin $text-sm;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .logo {
+    fill: var(--black-200);
+  }
+}

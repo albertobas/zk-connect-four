@@ -1,0 +1,69 @@
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 320px;
+  overflow: auto;
+  background-color: transparent;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0px;
+  z-index: 999;
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.modal > div {
+  background-color: #fff;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid gray;
+  border-radius: var(--border-radius);
+}
+
+.modal > div > button {
+  display: inline-flex;
+  align-self: flex-end;
+  padding: 0rem;
+  background-color: transparent;
+}
+
+.modal > div > button {
+  border: transparent;
+}
+
+.modal > div > button > svg {
+  color: var(--gray-800);
+}
+
+.modal > div > button > svg:hover {
+  color: var(--black-800);
+}
+
+.modal > div > div {
+  @mixin $text-lg;
+}
+
+@media screen and (max-width: 650px) {
+  .modal > div > div {
+    @mixin $text-base;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.75);
+  }
+
+  .modal > div {
+    background-color: #000;
+  }
+
+  .modal > div > button > svg:hover {
+    color: var(--gray-100);
+  }
+}

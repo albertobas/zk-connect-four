@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "connect-four"
+version = "0.1.0"
+description = ""
+authors = ["Alberto Bas"]
+license = "GPL-3.0"
+readme = "README.md"
+packages = [{include = "connect-four"}]
+
+[tool.poetry.dependencies]
+python = "3.10.11"
+numpy = "^1.26.0"
+onnx = "^1.14.1"
+pandas = "2.1.1"
+torch = "^2.1.0"
+
+[tool.poetry.group.dev.dependencies]
+autopep8 = "^2.0.4"
+jupyter = "^1.0.0"
+matplotlib = "^3.7.2"
+mypy = "^1.5.1"
+pandas-stubs = "^2.1.1.230928"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+

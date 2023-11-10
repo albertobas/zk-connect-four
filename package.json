@@ -1,0 +1,45 @@
+{
+  "name": "zk-connect-four",
+  "version": "0.1.0",
+  "description": "",
+  "license": "GPL-3.0",
+  "scripts": {
+    "build": "dotenv -- turbo run build",
+    "clean": "turbo run clean",
+    "compile": "dotenv -- turbo run compile",
+    "export": "dotenv -- turbo run export",
+    "export:contracts": "dotenv -- turbo run export --filter=contracts",
+    "deploy:contracts": "dotenv -- turbo run deploy --filter=contracts",
+    "dev": "dotenv -- turbo run dev",
+    "format": "prettier --write .",
+    "generate": "turbo run generate",
+    "info": "turbo run info",
+    "lint": "turbo run lint",
+    "print:constraints": "turbo run print:constraints",
+    "start": "dotenv -- turbo run start",
+    "node": "dotenv -- turbo run node",
+    "test": "turbo run test"
+  },
+  "author": {
+    "name": "Alberto Bas",
+    "url": "https://github.com/albertobas"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/albertobas/zk-connect-four.git"
+  },
+  "bugs": {
+    "url": "https://github.com/albertobas/zk-connect-four/issues"
+  },
+  "homepage": "https://github.com/albertobas/zk-connect-four#readme",
+  "devDependencies": {
+    "@commitlint/cli": "17.6.1",
+    "@commitlint/config-conventional": "17.6.1",
+    "dotenv-cli": "latest",
+    "eslint": "8.52.0",
+    "husky": "8.0.3",
+    "lint-staged": "13.2.1",
+    "prettier": "3.0.0",
+    "turbo": "latest"
+  }
+}

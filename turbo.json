@@ -1,0 +1,68 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDotEnv": [".env"],
+  "pipeline": {
+    "clean": {
+      "cache": false,
+      "persistent": false
+    },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"],
+      "dotEnv": [".env"],
+      "env": ["NODE_ENV", "PROJECT_ID", "NEXT_PUBLIC_NETWORK_NAME"]
+    },
+    "compile": {
+      "outputs": ["build/**"],
+      "env": ["PROJECT_ID", "PRIVATE_KEY"]
+    },
+    "generate": {
+      "outputs": ["config/**", "generated/**", "build/**", "contracts/src/**"],
+      "dependsOn": ["^compile"],
+      "persistent": false
+    },
+    "deploy": {
+      "cache": false,
+      "outputs": ["deployments/**"],
+      "persistent": false,
+      "dependsOn": ["^build", "^generate"],
+      "env": ["PROJECT_ID", "PRIVATE_KEY"]
+    },
+    "export": {
+      "cache": false,
+      "outputs": ["config/**", "generated/**"],
+      "persistent": false,
+      "dependsOn": ["^build", "^generate", "^deploy"],
+      "env": ["PROJECT_ID", "PRIVATE_KEY"]
+    },
+    "node": {
+      "cache": false,
+      "persistent": true,
+      "env": ["PROJECT_ID", "PRIVATE_KEY"]
+    },
+    "info": {
+      "cache": false,
+      "persistent": false
+    },
+    "print:constraints": {
+      "cache": false,
+      "persistent": false
+    },
+    "test": {
+      "outputs": ["coverage/**"],
+      "dependsOn": []
+    },
+    "lint": {},
+    "dev": {
+      "cache": false,
+      "persistent": true,
+      "dotEnv": [".env"],
+      "env": ["NODE_ENV", "PROJECT_ID", "NEXT_PUBLIC_NETWORK_NAME"]
+    },
+    "start": {
+      "cache": false,
+      "persistent": true,
+      "env": ["NODE_ENV", "NEXT_PUBLIC_NETWORK_NAME"]
+    }
+  }
+}

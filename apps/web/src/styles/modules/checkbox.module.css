@@ -1,0 +1,14 @@
+.container > button {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  justify-content: center;
+}
+
+.container > label {
+  padding-left: 10px;
+  @mixin $text-sm;
+}

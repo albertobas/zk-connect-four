@@ -1,0 +1,102 @@
+.container {
+  display: table-cell;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  width: 80px;
+  vertical-align: middle;
+  background-color: transparent;
+}
+
+.container > div {
+  border-radius: 100px;
+  height: 65px;
+  width: 65px;
+  margin: auto;
+}
+
+.container > div > button {
+  height: 100%;
+  width: 100%;
+  display: block;
+  outline: none;
+  padding: 0;
+}
+
+.container > div > button:hover {
+  border: none;
+}
+
+.container > div > button:focus,
+.container > div > button:focus-visible {
+  outline: none;
+}
+
+.empty,
+.container > div > button:disabled {
+  background-color: var(--blue-100);
+  border: none;
+}
+
+.player1 {
+  background: radial-gradient(var(--red-200), var(--red-400));
+  transition: background-color 1s;
+}
+
+.player2 {
+  background: radial-gradient(var(--yellow-200), var(--yellow-400));
+  transition: background-color 1s;
+}
+
+.winner {
+  border-width: 4px;
+  border-style: solid;
+  border-color: var(--blue-600);
+}
+
+.winner:hover {
+  border-color: transparent;
+}
+
+@media screen and (max-width: 650px) {
+  .container {
+    height: 60px;
+    width: 60px;
+  }
+
+  .container > div {
+    height: 48px;
+    width: 48px;
+  }
+
+  .winner {
+    border-width: 3px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .container {
+    height: 45px;
+    width: 45px;
+  }
+
+  .container > div {
+    height: 36px;
+    width: 36px;
+  }
+
+  .winner {
+    border-width: 3px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .empty,
+  .container > div > button:disabled {
+    background-color: var(--blue-600);
+  }
+
+  .winner {
+    border-color: var(--blue-100);
+  }
+}

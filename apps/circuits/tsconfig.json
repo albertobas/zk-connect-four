@@ -1,0 +1,9 @@
+{
+  "extends": "tsconfig/base.json",
+  "compilerOptions": {
+    "lib": ["ES2015"],
+    "module": "CommonJS"
+  },
+  "exclude": ["node_modules"],
+  "include": ["./test/**/*", "./scripts/**/*", "./.eslintrc.js"]
+}

@@ -1,0 +1,30 @@
+## directories
+**/node_modules
+.husky
+.turbo
+.next
+dist
+data
+build
+ptau
+artifacts
+deployments
+cache
+**/contracts/forge-cache
+**/contracts/cache
+**/contracts/lib
+**/contracts/out
+services/loans-graph
+**/.svelte-kit
+services/**/types
+generated
+circuits/build
+circuits/ptau
+
+
+# files
+package-lock.json
+pnpm-lock.yaml
+**/*.tsbuildinfo
+**/subgraph.template.yaml
+*.hbs

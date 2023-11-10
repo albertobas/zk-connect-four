@@ -1,0 +1,31 @@
+.mode {
+  @mixin $text-xl;
+  margin: 1rem 0 0;
+}
+
+.controlBtnsFlex {
+  margin: 1rem 0 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.controlBtnsFlex > div {
+  margin: 0 10px;
+}
+
+.controlBtnsFlex > div > button {
+  @mixin $text-base;
+  border-radius: var(--border-radius);
+  font-weight: 500;
+}
+
+@media screen and (max-width: 650px) {
+  .mode {
+    @mixin $text-lg;
+  }
+
+  .controlBtnsFlex > div {
+    @mixin $text-base;
+    margin: 0 5px;
+  }
+}

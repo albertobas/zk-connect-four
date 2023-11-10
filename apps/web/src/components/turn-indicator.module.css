@@ -1,0 +1,47 @@
+.turnFlex {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 1rem 0 0;
+}
+
+.turnFlex > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.player {
+  @mixin $text-base;
+  padding: 0.7rem 1.2rem;
+  font-weight: 700;
+  border-radius: var(--border-radius);
+  border: 1px solid transparent;
+  font-family: inherit;
+  background-color: transparent;
+}
+
+.isTurn {
+  background-color: var(--gray-600);
+  transition: background-color 0.5s;
+}
+
+@media screen and (max-width: 650px) {
+  .turnFlex {
+    width: 446px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .turnFlex {
+    width: 331px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .isTurn {
+    background-color: var(--black-400);
+  }
+}

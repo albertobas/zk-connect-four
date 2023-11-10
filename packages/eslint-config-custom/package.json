@@ -1,0 +1,11 @@
+{
+  "name": "eslint-config-custom",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "@vercel/style-guide": "^5.0.1",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-standard-with-typescript": "39.1.1",
+    "eslint-config-turbo": "^1.10.16"
+  }
+}

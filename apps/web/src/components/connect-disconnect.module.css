@@ -1,0 +1,6 @@
+.container {
+  border-radius: var(--border-radius);
+  margin: 10px 0 0;
+  @mixin $text-base;
+  font-weight: 500;
+}

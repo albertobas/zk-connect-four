@@ -1,0 +1,148 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  --blue-100: #d7e1fb;
+  --blue-200: #638bf1;
+  --blue-300: #1d56eb;
+  --blue-400: #0f3bad;
+  --blue-500: #0b2d83;
+  --blue-600: #071b4f;
+  --red-200: #c0304b;
+  --red-300: #97263b;
+  --red-400: #6e1c2b;
+  --yellow-200: #ffd500;
+  --yellow-300: #ccaa00;
+  --yellow-400: #998000;
+  --gray-200: #f6f6f6;
+  --gray-400: #efefef;
+  --gray-600: #e6e6e6;
+  --gray-800: #c0c0c0;
+  --black-200: #3a3a3a;
+  --black-400: #202020;
+  --black-600: #141414;
+  --black-800: #0a0a0a;
+  --border-radius: 10px;
+}
+
+a {
+  color: var(--blue-300);
+  text-decoration: inherit;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+body {
+  color: #213547;
+  background-color: var(--gray-200);
+  min-height: 100vh;
+  margin: 0px;
+}
+
+h1 {
+  @mixin $text-6xl;
+}
+
+h2 {
+  @mixin $text-4xl;
+}
+
+button {
+  min-width: 1rem;
+  min-height: 1rem;
+  font-family: inherit;
+  padding: 0.7rem 1.2rem;
+  background-color: var(--gray-600);
+  border-color: transparent;
+}
+
+select {
+  border-color: var(--gray-600);
+  width: 100%;
+  min-width: 170px;
+  max-width: 250px;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: white
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 140 140' width='12' height='12' xmlns='http://www.w3.org/2000/svg'><g><path d='m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z' fill='gray'/></g></svg>")
+    no-repeat;
+  background-position: right 10px top 50%;
+}
+
+button,
+select {
+  border-width: 2px;
+  border-style: solid;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  border-radius: var(--border-radius);
+}
+
+button:hover,
+select:hover {
+  border-color: var(--blue-200);
+}
+
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+button:disabled {
+  background-color: var(--gray-400);
+  cursor: not-allowed;
+  border-color: transparent;
+}
+
+::selection {
+  color: #fff;
+  background-color: var(--blue-300);
+}
+
+@media screen and (max-width: 650px) {
+  h1 {
+    @mixin $text-4xl;
+  }
+
+  h2 {
+    @mixin $text-2xl;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  a {
+    color: var(--blue-200);
+  }
+
+  body {
+    color: rgba(255, 255, 255, 0.87);
+    background-color: var(--black-800);
+  }
+
+  button {
+    background-color: var(--black-400);
+  }
+
+  button:disabled {
+    background-color: var(--black-600);
+  }
+
+  select {
+    border-color: var(--black-200);
+    background-color: black;
+  }
+
+  ::selection {
+    background-color: var(--blue-500);
+  }
+}
