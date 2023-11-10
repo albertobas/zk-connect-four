@@ -35,11 +35,11 @@
   "devDependencies": {
     "@commitlint/cli": "17.6.1",
     "@commitlint/config-conventional": "17.6.1",
-    "dotenv-cli": "latest",
+    "dotenv-cli": "7.3.0",
     "eslint": "8.52.0",
     "husky": "8.0.3",
     "lint-staged": "13.2.1",
     "prettier": "3.0.0",
-    "turbo": "latest"
+    "turbo": "1.10.16"
   }
 }
