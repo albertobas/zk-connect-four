@@ -2,6 +2,8 @@
 
 [![GNU General Public License v3.0](https://img.shields.io/badge/License-GNU_General_Public_License_v3.0-yellow.svg)](https://github.com/albertobas/zk-connect-four/blob/main/LICENSE)
 
+![zk Connect Four demo](https://www.albertobas.com/images/how-to-build-zero-knowledge-dapp/zk_connect_four.gif)
+
 ## About
 
 zk Connect Four is a zero-knowledge decentralized application that lets you play the game of Connect Four against a DQN agent-trained policy or against another user and generate and verify a zk-SNARK proof to validate that a user knows who won a valid game without revealing any information.

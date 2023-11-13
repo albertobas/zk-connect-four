@@ -40,7 +40,7 @@ export function EnabledVerifyButton({
   async function handleVerify(e: React.MouseEvent): Promise<void> {
     e.preventDefault();
     try {
-      // generate public signals and zkSNARK proof
+      // generate public signals and zk-SNARK proof
       const { proof, publicSignals } = await generateProof(board, winner);
       // make transaction to the PLONK verifier and verify the proof
       write({ args: [proof, publicSignals] });
