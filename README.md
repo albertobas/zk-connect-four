@@ -6,7 +6,7 @@
 
 ## About
 
-zk Connect Four is a zero-knowledge decentralized application that lets you play the game of Connect Four against a DQN agent-trained policy or against another user and generate and verify a zk-SNARK proof to validate that a user knows who won a valid game without revealing any information.
+zk Connect Four is a zero-knowledge decentralised application that lets you play the game of Connect Four against a DQN agent-trained policy or against another user and generate and verify a zk-SNARK proof to validate that a user knows who won a valid game without revealing any information.
 
 ## Technical details
 
