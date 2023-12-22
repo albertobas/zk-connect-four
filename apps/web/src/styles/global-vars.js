@@ -12,5 +12,5 @@ module.exports = {
   'text-6xl': 'fontSize 3.75rem, 1',
   'text-7xl': 'fontSize 4.5rem, 1',
   'text-8xl': 'fontSize 6rem, 1',
-  'text-9xl': 'fontSize 8rem, 1',
+  'text-9xl': 'fontSize 8rem, 1'
 };

@@ -6,7 +6,9 @@ async function exportFiles(): Promise<void> {
   const zkeyFileNAme = 'proving-key.zkey';
   const publicPath = join(__dirname, '../..', 'web', 'public', 'zk');
 
-  const wasmData = readFileSync(join(__dirname, '..', 'build', 'connect-four_js', wasmFileName));
+  const wasmData = readFileSync(
+    join(__dirname, '..', 'build', 'connect-four_js', wasmFileName)
+  );
   const keyData = readFileSync(join(__dirname, '..', 'build', zkeyFileNAme));
 
   if (!existsSync(publicPath)) {
@@ -16,7 +18,9 @@ async function exportFiles(): Promise<void> {
   writeFileSync(join(publicPath, wasmFileName), wasmData);
   writeFileSync(join(publicPath, zkeyFileNAme), keyData);
 
-  console.log(`${wasmFileName} and ${zkeyFileNAme} have been exported to ${publicPath}.`);
+  console.log(
+    `${wasmFileName} and ${zkeyFileNAme} have been exported to ${publicPath}.`
+  );
 }
 
 exportFiles()
