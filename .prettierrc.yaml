@@ -1,3 +1,4 @@
+plugins: [prettier-plugin-solidity]
 useTabs: false
 trailingComma: none
 tabWidth: 2
