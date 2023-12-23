@@ -20,10 +20,9 @@ The model that is used to play against a user is a policy optimized by a DQN age
 
 - **Circuits language**: [Circom](https://docs.circom.io)
 - **Contracts language**: [Solidity](https://soliditylang.org)
-- **Contracts frameworks**: [Hardhat](https://hardhat.org)
+- **Contracts framework**: [Hardhat](https://hardhat.org)
+- **Front-end framework**: [Next.js](https://nextjs.org)
 - **Front-end language**: [Typescript](https://www.typescriptlang.org)
-- **Front-end library**: [React](https://react.dev)
-- **Front-end tooling**: [Next.js](https://nextjs.org)
 - **Styling**: [PostCSS](https://postcss.org)
 - **Python dependency manager**: [Poetry](https://python-poetry.org)
 - **Machine learning framework**: [Pytorch](https://pytorch.org)
