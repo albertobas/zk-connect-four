@@ -2,7 +2,7 @@
 
 [![GNU General Public License v3.0](https://img.shields.io/badge/License-GNU_General_Public_License_v3.0-yellow.svg)](https://github.com/albertobas/zk-connect-four/blob/main/LICENSE)
 
-![zk Connect Four demo](https://www.albertobas.com/images/how-to-build-zero-knowledge-dapp/zk_connect_four.gif)
+![zk Connect Four demo](https://www.albertobas.com/images/blog/how-to-build-zero-knowledge-dapp/zk_connect_four.gif)
 
 ## About
 
