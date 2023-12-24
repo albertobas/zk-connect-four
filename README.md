@@ -6,15 +6,11 @@
 
 ## About
 
-zk Connect Four is a zero-knowledge decentralised application that lets you play the game of Connect Four against a DQN agent-trained policy or against another user and generate and verify a zk-SNARK proof to validate that a user knows who won a valid game without revealing any information.
+zk Connect Four is a zero-knowledge decentralised application that lets you play the game of Connect Four against a DQN agent-trained policy or against another user, and generate and verify a zk-SNARK proof to validate that a user knows who won a valid game without revealing any information.
 
 ## Technical details
 
-This application includes circuits authored in Circom and tested using Typescript.
-
-The contracts are written in Solidity using Hardhat.
-
-The front-end code is a React application written in TypeScript using Next.js.
+The bulk of this application is made up of (i) circuits authored in Circom and tested using Typescript, (ii) smart contracts are written in Solidity using Hardhat and (iii) a React application written in TypeScript using Next.js.
 
 The model that is used to play against a user is a policy optimized by a DQN agent in a reinforcement learning task using PyTorch.
 
