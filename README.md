@@ -10,7 +10,7 @@ zk Connect Four is a zero-knowledge decentralised application that lets you play
 
 ## Technical details
 
-The bulk of this application is made up of (i) circuits authored in Circom and tested using Typescript, (ii) smart contracts are written in Solidity using Hardhat and (iii) a React application written in TypeScript using Next.js.
+The bulk of this application is made up of (i) circuits authored in Circom and tested using TypeScript, (ii) smart contracts are written in Solidity using Hardhat and (iii) a React application written in TypeScript using Next.js.
 
 The model that is used to play against a user is a policy optimized by a DQN agent in a reinforcement learning task using PyTorch.
 
@@ -18,7 +18,7 @@ The model that is used to play against a user is a policy optimized by a DQN age
 - **Contracts language**: [Solidity](https://soliditylang.org)
 - **Contracts framework**: [Hardhat](https://hardhat.org)
 - **Front-end framework**: [Next.js](https://nextjs.org)
-- **Front-end language**: [Typescript](https://www.typescriptlang.org)
+- **Front-end language**: [TypeScript](https://www.typescriptlang.org)
 - **Styling**: [PostCSS](https://postcss.org)
 - **Python dependency manager**: [Poetry](https://python-poetry.org)
 - **Machine learning framework**: [Pytorch](https://pytorch.org)
