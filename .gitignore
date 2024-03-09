@@ -17,7 +17,7 @@ public/dist
 artifacts
 data
 apps/circuits/build/**
-apps/circuits/ptau/**
+apps/circuits/ptau/*.ptau
 apps/circuits/zk/**
 apps/contracts/types
 __pycache__
