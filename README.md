@@ -26,24 +26,23 @@ The policy that is used to play against a user consists of a neural network whic
 ## Overview
 
 - `packages/*`: npm packages that contain code and configuration files that are used by other packages or services.
-- `apps/*`: workspaces that make up the bulk of the application.
-- `apps/circuits/*`: circuits workspace, it includes circuits written in Circom and a circuit unit test.
-- `apps/contracts/*`: smart contracts workspace which gathers contracts written in Solidity language, deploy scripts and a deployment json.
+- `circuits/*`: circuits workspace, it includes circuits written in Circom and a circuit unit test.
+- `contracts/*`: smart contracts workspace which gathers contracts written in Solidity language, deploy scripts and a deployment json.
 - `apps/web/*`: front-end workspace which includes React functional components, CSSModules files, PostCSS mixins and a global css file.
 
 ## Running locally
 
-Before running this application you will need to have pnpm and Circom installed in your computer and download the proper powers of Tau file and paste it to apps/circuits/ptau (more info in [this readme file](/apps/circuits/ptau/README.md)).
+Before running this application you will need to have pnpm and Circom installed in your computer and download the proper powers of Tau file and paste it to /circuits/ptau (more info in [this readme file](/circuits/ptau/README.md)).
 
 ```bash
 $ git clone https://github.com/albertobas/zk-connect-four.git
 $ cd zk-connect-four
-$ cp .env.example .env # fill in tha values for each variable in ./.env, NEXT_PUBLIC_NETWORK_NAME must be either sepolia or localhost.
+$ cp .env.example .env # fill in tha values for each variable in ./.env, NETWORK_NAME must be either sepolia or localhost.
 $ pnpm install
 $ pnpm dev
 ```
 
-If you'd like to run this application locally and deploy the contracts on a local node, replace `sepolia` for `localhost` in the `NEXT_PUBLIC_NETWORK_NAME` environment variable (and import the corresponding contract ABI and address in `apps/web/src/components/enabled-verify-button.tsx` after deploying the contracts locally and exporting the data) and run:
+If you'd like to run this application locally and deploy the contracts on a local node, replace `sepolia` for `localhost` in the `NETWORK_NAME` environment variable (remember to connect to localhost in your wallet) and run:
 
 ```bash
 $ pnpm node
