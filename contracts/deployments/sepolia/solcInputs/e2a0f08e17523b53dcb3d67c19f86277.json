@@ -1,0 +1,35 @@
+{
+  "language": "Solidity",
+  "sources": {
+    "src/ZKConnectFour.sol": {
+      "content": "// SPDX-License-Identifier: GPL-3.0\npragma solidity 0.8.17;\n\n/// @dev Interface of the PLONK verifier\ninterface IPlonkVerifier {\n    function verifyProof(bytes memory proof, uint[] memory pubSignals) external view returns (bool);\n}\n\n/**\n * @dev Contract that uses a PLONK verifier in order to verify zero-knowledge proofs on the game of\n *     Connect Four and emit events with the result of the verifications.\n */\ncontract ZKConnectFour {\n    /// @dev Address of the PLONK verifier\n    address _plonkVerifier;\n\n    /// @dev Emitted when a proof is verified\n    event ProofVerification(address indexed user, bytes32 indexed proofHash, bool success, uint256 timestamp);\n\n    /**\n     * @dev Initializes the contract by setting an address to the PLONK verifier.\n     * @param plonkVerifier_  address of the verifier\n     */\n    constructor(address plonkVerifier_) {\n        _plonkVerifier = plonkVerifier_;\n    }\n\n    /**\n     * @dev Verifies the validity of the proof `proof`.\n     *     Emits the event ProofVerification.\n     * @param proof the proof to be verified.\n     * @param pubSignals public signals.\n     */\n    function verifyProof(bytes memory proof, uint256[] memory pubSignals) external {\n        bool result = IPlonkVerifier(_plonkVerifier).verifyProof(proof, pubSignals);\n        bytes32 proofHash = keccak256(proof);\n        emit ProofVerification(msg.sender, proofHash, result, block.timestamp);\n    }\n}\n"
+    }
+  },
+  "settings": {
+    "optimizer": {
+      "enabled": false,
+      "runs": 200
+    },
+    "outputSelection": {
+      "*": {
+        "*": [
+          "abi",
+          "evm.bytecode",
+          "evm.deployedBytecode",
+          "evm.methodIdentifiers",
+          "metadata",
+          "devdoc",
+          "userdoc",
+          "storageLayout",
+          "evm.gasEstimates"
+        ],
+        "": [
+          "ast"
+        ]
+      }
+    },
+    "metadata": {
+      "useLiteralContent": true
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "extends": "tsconfig/base.json",
+  "compilerOptions": {
+    "lib": ["ES2015"],
+    "module": "CommonJS"
+  },
+  "exclude": ["node_modules"],
+  "include": ["./src/**/*", "./deploy/**/*", "./.eslintrc.js"],
+  "files": ["./hardhat.config.ts"]
+}

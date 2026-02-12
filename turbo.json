@@ -11,12 +11,12 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"],
       "dotEnv": [".env"],
-      "env": ["ENV_B"]
+      "env": ["PROJECT_ID"]
     },
 
     "compile": {
       "outputs": ["build/**"],
-      "env": ["ENV_B", "ENV_A"]
+      "env": ["PROJECT_ID", "PRIVATE_KEY"]
     },
 
     "generate": {
