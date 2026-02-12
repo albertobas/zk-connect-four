@@ -5,7 +5,12 @@ import {
   useRef,
   useState
 } from 'react';
-import { connectFourSelector, switchTurn, setBoard } from '../state';
+import {
+  connectFourSelector,
+  switchTurn,
+  setBoard,
+  setLastMove
+} from '../state';
 import { checkWinner, getPrediction, getRowIndex, updateBoard } from '../utils';
 import { useAppDispatch } from './use-app-dispatch';
 import { useAppSelector } from './use-app-selector';
@@ -36,21 +41,17 @@ export function useAI(): {
   useEffect(() => {
     const predict = async (): Promise<void> => {
       try {
-        const columnIndex = await getPrediction(board);
-        if (columnIndex === null) {
+        const colIndex = await getPrediction(board);
+        if (colIndex === null) {
           console.warn(
             'Error: unable to get a row index from the predicted column index.'
           );
         } else {
-          const rowIndex = getRowIndex(board, columnIndex);
+          const rowIndex = getRowIndex(board, colIndex);
           if (rowIndex !== null) {
-            const updatedBoard = updateBoard(
-              board,
-              turn,
-              rowIndex,
-              columnIndex
-            );
+            const updatedBoard = updateBoard(board, turn, rowIndex, colIndex);
             dispatch(setBoard(updatedBoard));
+            dispatch(setLastMove({ row: rowIndex, col: colIndex }));
             // check that this move does neither win nor draw the game before switching the turn
             const winner = checkWinner(updatedBoard);
             if (winner === null && numCounters < 41) {
@@ -66,7 +67,7 @@ export function useAI(): {
     if (
       ((mode === 'userVsAI' && turn === '2') ||
         (mode === 'aIVsUser' && turn === '1')) &&
-      status !== 'gameOver'
+      status !== 'GAME_OVER'
     ) {
       timerId.current = setTimeout(
         () => {

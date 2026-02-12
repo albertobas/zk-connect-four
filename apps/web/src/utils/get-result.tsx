@@ -16,7 +16,7 @@ export function getResult(
   winner: ConnectFourWinner | null,
   mode: ConnectFourMode | null
 ): JSX.Element {
-  if (status === 'gameOver') {
+  if (status === 'GAME_OVER') {
     if (winner !== null) {
       const { player } = winner;
       if (mode === 'userVsAI') {

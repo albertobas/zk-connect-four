@@ -1,9 +1,8 @@
 import { useNetwork } from 'wagmi';
-import { sepolia, localhost } from 'wagmi/chains';
 import { useIsMounted } from 'ui';
 import { useAppSelector } from '../hooks';
 import { connectFourSelector } from '../state';
-import { isInstanceOfNetwork } from '../helpers';
+import { isInstanceOfSupportedChainId } from '../helpers';
 import { EnabledVerifyButton } from './enabled-verify-button';
 import { DisabledVerifyButton } from './disabled-verify-button';
 
@@ -12,19 +11,11 @@ export function VerifyButton(): JSX.Element {
   const isMounted = useIsMounted();
   const { chain } = useNetwork();
 
-  const networkName = process.env.NEXT_PUBLIC_NETWORK_NAME;
-
-  if (!isInstanceOfNetwork(networkName)) {
-    throw new Error(
-      'Either the network is not defined or it is different to Sepolia or Localhost'
-    );
-  }
-
   if (!isMounted) {
     return <DisabledVerifyButton title="Mounting" />;
   }
 
-  if (status !== 'gameOver' && winner === null) {
+  if (status !== 'GAME_OVER' && winner === null) {
     return (
       <DisabledVerifyButton title="The game has to be over in order to verify a proof " />
     );
@@ -36,7 +27,7 @@ export function VerifyButton(): JSX.Element {
     );
   }
 
-  if (status !== 'gameOver') {
+  if (status !== 'GAME_OVER') {
     return (
       <DisabledVerifyButton title="There needs to be a winner of the game in order to verify a proof" />
     );
@@ -48,15 +39,9 @@ export function VerifyButton(): JSX.Element {
     );
   }
 
-  if (networkName === 'sepolia' && chain.id !== sepolia.id) {
+  if (!isInstanceOfSupportedChainId(chain.id)) {
     return (
-      <DisabledVerifyButton title="You need to connect to Sepolia first" />
-    );
-  }
-
-  if (networkName === 'localhost' && chain.id !== localhost.id) {
-    return (
-      <DisabledVerifyButton title="You need to connect to Localhost first" />
+      <DisabledVerifyButton title="You need to connect to a supported network first" />
     );
   }
 

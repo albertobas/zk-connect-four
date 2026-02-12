@@ -22,8 +22,8 @@ function TurnIndicator({
 }: TurnIndicatorProps): JSX.Element {
   const { status, turn } = useAppSelector(connectFourSelector);
 
-  const isPlayer1Turn = status === 'playing' && turn === '1';
-  const isPlayer2Turn = status === 'playing' && turn === '2';
+  const isPlayer1Turn = status === 'PLAYING' && turn === '1';
+  const isPlayer2Turn = status === 'PLAYING' && turn === '2';
   const showCheckbox =
     typeof isSlow !== 'undefined' && typeof setIsSlow !== 'undefined';
 

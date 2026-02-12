@@ -6,7 +6,7 @@ import { useAppDispatch } from './use-app-dispatch';
 import { useAppSelector } from './use-app-selector';
 
 /**
- * Hook to update the Connect Four state when playing User vs User.
+ * Hook to update the Connect Four state when the game is over.
  * This hook will:
  * - update the board whenever state coordinates change, and switch the turn.
  * - check if there is a winner and change the status of the game accordingly.
@@ -19,10 +19,10 @@ export function useGameOver(): void {
 
   // check for a winner
   useEffect(() => {
-    if (status !== 'gameOver') {
+    if (status !== 'GAME_OVER') {
       const winner_ = checkWinner(board);
       if (winner_ !== null) {
-        const newStatus: ConnectFourStatus = 'gameOver';
+        const newStatus: ConnectFourStatus = 'GAME_OVER';
         dispatch(setWinner(winner_));
         dispatch(setStatus(newStatus));
       }
@@ -32,7 +32,7 @@ export function useGameOver(): void {
   // check for a draw
   useEffect(() => {
     if (numCounters === 42 && winner === null) {
-      const newStatus: ConnectFourStatus = 'gameOver';
+      const newStatus: ConnectFourStatus = 'GAME_OVER';
       dispatch(setStatus(newStatus));
     }
   }, [numCounters, dispatch, mode, status, winner]);

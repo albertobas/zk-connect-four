@@ -1,6 +1,11 @@
 import { Button } from 'ui';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { connectFourSelector, switchTurn, setBoard } from '../state';
+import {
+  connectFourSelector,
+  switchTurn,
+  setBoard,
+  setLastMove
+} from '../state';
 import type { ColorType } from '../types/connect-four';
 import { checkWinner, validateMove, updateBoard, getRowIndex } from '../utils';
 import styles from './cell.module.css';
@@ -34,6 +39,7 @@ export function Cell({
           colIndex
         );
         dispatch(setBoard(updatedBoard));
+        dispatch(setLastMove({ row: counterRowIndex, col: colIndex }));
 
         const winner = checkWinner(updatedBoard);
         if (winner === null && numCounters < 41) {
@@ -47,7 +53,7 @@ export function Cell({
     board[rowIndex][colIndex] !== '0' ||
     (mode === 'userVsAI' && turn === '2') ||
     (mode === 'aIVsUser' && turn === '1') ||
-    status === 'gameOver';
+    status === 'GAME_OVER';
 
   return (
     <div className={styles.container}>

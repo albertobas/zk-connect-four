@@ -10,38 +10,48 @@ const plonk = require('snarkjs').plonk;
  * Generates a zk-SNARK and returns both the proof and public signals.
  * @param board - Connect Four board.
  * @param winner - The winnner of the game.
- * @param coordinates - The coordinates of the winning counters.
+ * @param lastMove - The coordinates of the winning counters.
  * @returns The proof and public signals.
  */
 export async function generateProof(
   board: ConnectFourBoard,
-  winner: ConnectFourWinner
-): Promise<{ proof: string; publicSignals: string[] }> {
+  winner: ConnectFourWinner,
+  lastMove: ConnectFourCoordinates
+): Promise<{ proofBytes: string; pubSignals: bigint[] }> {
+  // 1- calculate a witness and generate a proof
   const { player, coordinates } = winner;
-  // inputs to the circuit
   const inputs = {
     board: getIntBoard(board),
-    winner: parseInt(player),
-    coordinates: getIntCoordinates(coordinates)
+    winner: player,
+    coordinates: getIntCoordinatesArray(coordinates),
+    lastMove: getIntCoordinates(lastMove)
   };
   // paths to the .wasm file and proving key
-  const wasmPath = 'zk/connect-four.wasm';
-  const provingKeyPath = 'zk/proving-key.zkey';
-  // calculate a witness and generate a proof
+  const wasmPath = 'zk/connect_four.wasm';
+  const provingKeyPath = 'zk/proving_key.zkey';
   const { proof, publicSignals } = await plonk.fullProve(
     inputs,
     wasmPath,
     provingKeyPath
   );
-  const rawCalldata: string = await plonk.exportSolidityCallData(
+  // 2 - generate the solidity calldata
+  const calldata: string = await plonk.exportSolidityCallData(
     proof,
     publicSignals
   );
-  const calldata = rawCalldata.split(',');
+  // 3 - parse the proof and signals
+  const firstComma = calldata.indexOf(',');
+  if (firstComma === -1) {
+    throw new Error('Invalid PLONK calldata format');
+  }
+  const proofBytes = calldata.slice(0, firstComma);
+  const pubSignalsRaw = calldata.slice(firstComma + 1); // "[...]" or "[]"
+  const parsedSignals: string[] = JSON.parse(pubSignalsRaw);
+  const pubSignals = parsedSignals.map((x) => BigInt(x));
 
   return {
-    proof: calldata[0],
-    publicSignals: JSON.parse(calldata[1])
+    proofBytes,
+    pubSignals
   };
 }
 
@@ -69,18 +79,28 @@ function getIntBoard(board: ConnectFourBoard): number[][] {
  * @param coordinates - The coordinates of the winning counters.
  * @returns An array of array coordinate numbers.
  */
-function getIntCoordinates(coordinates: ConnectFourCoordinates[]): number[][] {
+function getIntCoordinatesArray(
+  coordinates: ConnectFourCoordinates[]
+): number[][] {
   const intCoord: number[][] = [];
   for (let i = 0; i < coordinates.length; i++) {
-    const { row, col } = coordinates[i];
-    if (row === null || col === null) {
-      throw new Error(
-        'getIntCoordinates is trying to assert null coordinates.'
-      );
-    }
+    const [row, col] = getIntCoordinates(coordinates[i]);
     intCoord[i] = [];
     intCoord[i][0] = row;
     intCoord[i][1] = col;
   }
   return intCoord;
+}
+
+/**
+ * Gets a ConnectFourCoordinates object and returns an array of coordinate numbers.
+ * @param coordinates - The coordinates of a counter.
+ * @returns An array of coordinate numbers.
+ */
+function getIntCoordinates(coordinates: ConnectFourCoordinates): number[] {
+  const { row, col } = coordinates;
+  if (row === null || col === null) {
+    throw new Error('getIntCoordinates is trying to assert null coordinates.');
+  }
+  return [row, col];
 }

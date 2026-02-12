@@ -1,23 +1,32 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import {
-  type ConnectFourState,
-  type RootState,
-  type ConnectFourStatus,
-  type ConnectFourCoordinates,
-  type ConnectFourPlayer,
-  type ConnectFourMode,
-  type ConnectFourBoard
+import type { Address } from 'viem';
+import type {
+  VerificationStatus,
+  ConnectFourState,
+  RootState,
+  ConnectFourStatus,
+  ConnectFourCoordinates,
+  ConnectFourPlayer,
+  ConnectFourMode,
+  ConnectFourBoard
 } from '../types/connect-four';
-import { initialBoard } from '../constants';
+import { initialBoard } from '../constants/game';
 
 // initial state
 const initialState: ConnectFourState = {
   board: initialBoard,
-  status: 'start',
+  status: 'IDLE',
   mode: null,
   turn: '1',
   numCounters: 0,
-  winner: null
+  winner: null,
+  lastMove: null,
+  verification: {
+    status: 'IDLE',
+    txHash: null,
+    isValid: null,
+    blockNumber: null
+  }
 };
 
 // slice
@@ -30,6 +39,11 @@ const connectFourSlice = createSlice({
       state.numCounters = 0;
       state.turn = '1';
       state.winner = null;
+      state.verification.status = 'IDLE';
+      state.verification.txHash = null;
+      state.verification.blockNumber = null;
+      state.verification.isValid = null;
+      state.lastMove = null;
     },
     setMode: (state, { payload }: PayloadAction<ConnectFourMode | null>) => {
       state.mode = payload;
@@ -54,6 +68,37 @@ const connectFourSlice = createSlice({
     setBoard(state, { payload }: PayloadAction<ConnectFourBoard>) {
       state.board = payload;
       state.numCounters += 1;
+    },
+    setVerificationStatus: (
+      state,
+      { payload }: PayloadAction<VerificationStatus>
+    ) => {
+      state.verification.status = payload;
+    },
+    setTransactionData: (
+      state,
+      {
+        payload: { blockNumber, hash }
+      }: PayloadAction<{ hash: Address | null; blockNumber: string | null }>
+    ) => {
+      state.verification.txHash = hash;
+      state.verification.blockNumber = blockNumber;
+    },
+    resetVerification: (state) => {
+      state.verification.status = 'IDLE';
+      state.verification.txHash = null;
+      state.verification.blockNumber = null;
+      state.verification.isValid = null;
+    },
+    setVerifiedResult: (state, { payload }: PayloadAction<boolean>) => {
+      state.verification.isValid = payload;
+      state.verification.status = 'VERIFIED';
+    },
+    setLastMove: (
+      state,
+      { payload }: PayloadAction<ConnectFourCoordinates | null>
+    ) => {
+      state.lastMove = payload;
     }
   }
 });
@@ -64,7 +109,12 @@ export const {
   setStatus,
   switchTurn,
   setWinner,
-  setBoard
+  setBoard,
+  setVerificationStatus,
+  setTransactionData,
+  resetVerification,
+  setVerifiedResult,
+  setLastMove
 } = connectFourSlice.actions;
 export const connectFourSelector = (state: RootState): ConnectFourState =>
   state.connectFour;

@@ -3,7 +3,7 @@
   "chainId": "11155111",
   "contracts": {
     "PlonkVerifier": {
-      "address": "0x2d3Fc1B4769F6DDd4aBfe1A239e4504c12c4f364",
+      "address": "0xB2A793C29Fad48A4fEFe56090314Ee1c4ED761Ea",
       "abi": [
         {
           "inputs": [
@@ -32,7 +32,7 @@
       ]
     },
     "ZKConnectFour": {
-      "address": "0xb90bdb43Fb81Fe38d842bD8841F2E143fBBe106C",
+      "address": "0x83D9dA923743f2FD6F77C7f3560ba95E63b8df73",
       "abi": [
         {
           "inputs": [
@@ -49,10 +49,28 @@
           "anonymous": false,
           "inputs": [
             {
+              "indexed": true,
+              "internalType": "address",
+              "name": "user",
+              "type": "address"
+            },
+            {
+              "indexed": true,
+              "internalType": "bytes32",
+              "name": "proofHash",
+              "type": "bytes32"
+            },
+            {
               "indexed": false,
               "internalType": "bool",
-              "name": "result",
+              "name": "success",
               "type": "bool"
+            },
+            {
+              "indexed": false,
+              "internalType": "uint256",
+              "name": "timestamp",
+              "type": "uint256"
             }
           ],
           "name": "ProofVerification",

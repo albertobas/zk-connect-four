@@ -3,10 +3,10 @@ import styles from './board.module.css';
 import { Board } from './board';
 import TurnIndicator from './turn-indicator';
 
+const player = 'User';
+
 export function UserVsUserBoard(): JSX.Element {
   useGameOver();
-
-  const player = 'User';
 
   return (
     <div className={styles.container}>
