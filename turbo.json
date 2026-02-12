@@ -1,68 +1,73 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDotEnv": [".env"],
+  "globalEnv": ["NODE_ENV"],
   "pipeline": {
     "clean": {
-      "cache": false,
-      "persistent": false
+      "cache": false
     },
+
     "build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**", "!.next/cache/**"],
       "dotEnv": [".env"],
-      "env": ["NODE_ENV", "PROJECT_ID", "NEXT_PUBLIC_NETWORK_NAME"]
+      "env": ["ENV_B"]
     },
+
     "compile": {
       "outputs": ["build/**"],
-      "env": ["PROJECT_ID", "PRIVATE_KEY"]
+      "env": ["ENV_B", "ENV_A"]
     },
+
     "generate": {
       "outputs": ["config/**", "generated/**", "build/**", "contracts/src/**"],
-      "dependsOn": ["^compile"],
-      "persistent": false
+      "dependsOn": ["^compile"]
     },
+
     "deploy": {
       "cache": false,
-      "outputs": ["deployments/**"],
-      "persistent": false,
       "dependsOn": ["^build", "^generate"],
-      "env": ["PROJECT_ID", "PRIVATE_KEY"]
+      "outputs": ["deployments/**"]
     },
+
     "export": {
       "cache": false,
-      "outputs": ["config/**", "generated/**"],
-      "persistent": false,
       "dependsOn": ["^build", "^generate", "^deploy"],
-      "env": ["PROJECT_ID", "PRIVATE_KEY"]
+      "outputs": ["config/**", "generated/**"]
     },
+
     "node": {
       "cache": false,
-      "persistent": true,
-      "env": ["PROJECT_ID", "PRIVATE_KEY"]
+      "persistent": true
     },
+
     "info": {
       "cache": false,
       "persistent": false
     },
+
     "print:constraints": {
       "cache": false,
       "persistent": false
     },
+
     "test": {
-      "outputs": ["coverage/**"],
-      "dependsOn": []
+      "dependsOn": ["^compile"],
+      "outputs": ["coverage/**"]
     },
-    "lint": {},
+
+    "lint": {
+      "outputs": []
+    },
+
     "dev": {
       "cache": false,
-      "persistent": true,
-      "dotEnv": [".env"],
-      "env": ["NODE_ENV", "PROJECT_ID", "NEXT_PUBLIC_NETWORK_NAME"]
+      "persistent": true
     },
+
     "start": {
       "cache": false,
-      "persistent": true,
-      "env": ["NODE_ENV", "NEXT_PUBLIC_NETWORK_NAME"]
+      "persistent": true
     }
   }
 }

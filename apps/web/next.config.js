@@ -26,8 +26,6 @@ const nextConfig = {
           {
             from: './model/exports/policies/ConnectFourNet_2023_10_29_T_20_28_55.onnx',
             to: 'static/chunks/pages'
-            // from: './model/exports/policies/ConnectFourNet_2023_10_29_T_20_28_55.onnx',
-            // to: './model'
           }
         ]
       })

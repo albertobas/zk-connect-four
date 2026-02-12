@@ -16,11 +16,11 @@ public/dist
 .ipynb_checkpoints
 artifacts
 data
-apps/circuits/build/**
-apps/circuits/ptau/*.ptau
-apps/circuits/zk/**
-apps/contracts/types
+circuits/build/**
+circuits/ptau/*.ptau
+circuits/zk/**
+contracts/types
 __pycache__
 apps/web/src/generated/localhost.json
-apps/contracts/deployments/localhost
-apps/contracts/src/PlonkVerifier.sol
+contracts/deployments/localhost
+contracts/src/PlonkVerifier.sol
