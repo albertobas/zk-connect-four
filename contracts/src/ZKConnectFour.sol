@@ -12,10 +12,10 @@ interface IPlonkVerifier {
  */
 contract ZKConnectFour {
     /// @dev Address of the PLONK verifier
-    address _plonkVerifier;
+    address public immutable _plonkVerifier;
 
     /// @dev Emitted when a proof is verified
-    event ProofVerification(address indexed user, bytes32 indexed proofHash, bool success, uint256 timestamp);
+    event ProofVerification(address indexed user, bytes32 proofHash, bool success);
 
     /**
      * @dev Initializes the contract by setting an address to the PLONK verifier.
@@ -34,6 +34,6 @@ contract ZKConnectFour {
     function verifyProof(bytes memory proof, uint256[] memory pubSignals) external {
         bool result = IPlonkVerifier(_plonkVerifier).verifyProof(proof, pubSignals);
         bytes32 proofHash = keccak256(proof);
-        emit ProofVerification(msg.sender, proofHash, result, block.timestamp);
+        emit ProofVerification(msg.sender, proofHash, result);
     }
 }
