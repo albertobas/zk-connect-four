@@ -135,8 +135,7 @@ template ConnectFour() {
         }
     }
 
-    // check diagonal combinations
-    component isAntiDiagonalWinLine[3][4];
+    // anti-diagonal check
     for (var row = 0; row < 3; row++) {
         for (var col = 0; col < 4; col++) {
             checkLine[idx] = CheckLineAndPreExistingWin(row, col, row + 1, col + 1, row + 2, col + 2, row + 3, col + 3);
