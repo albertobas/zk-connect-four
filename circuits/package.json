@@ -8,7 +8,7 @@
     "export": "ts-node scripts/export.ts",
     "export:json": "snarkjs zkey export verificationkey build/proving_key.zkey zk/proving_key.json",
     "generate": "pnpm run generate:proving-key && pnpm run generate:verifier-contract",
-    "generate:proving-key": "snarkjs plonk setup build/connect_four.r1cs ptau/powersOfTau28_hez_final_13.ptau build/proving_key.zkey",
+    "generate:proving-key": "snarkjs plonk setup build/connect_four.r1cs ptau/powersOfTau28_hez_final_14.ptau build/proving_key.zkey",
     "generate:verifier-contract": "snarkjs zkey export solidityverifier build/proving_key.zkey '../contracts/src/PlonkVerifier.sol'",
     "info": "snarkjs r1cs info build/connect_four.r1cs",
     "lint": "eslint test/**/*.ts",

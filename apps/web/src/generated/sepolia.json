@@ -3,7 +3,7 @@
   "chainId": "11155111",
   "contracts": {
     "PlonkVerifier": {
-      "address": "0x6dfd19Eda6bB82d4bd7C95f5E91f28bD28fA95BB",
+      "address": "0x0FD950700ECf7b42ce9Ec8F48F981AcE9F01E40a",
       "abi": [
         {
           "inputs": [
@@ -32,7 +32,7 @@
       ]
     },
     "ZKConnectFour": {
-      "address": "0xb09e2005299E48adCe523dF08Eb5242b709ef3C7",
+      "address": "0xdE7892233f52dFb71080a9FC4Ca5365F4a67cD5b",
       "abi": [
         {
           "inputs": [

@@ -1,6 +1,7 @@
 pragma circom 2.1.6;
 
 include "./node_modules/circomlib/circuits/comparators.circom";
+include "./node_modules/circomlib/circuits/poseidon.circom";
 
 template IsZeroOneOrTwo(){
     signal input in;
@@ -59,14 +60,17 @@ template CheckLineAndPreExistingWin(r0, c0, r1, c1, r2, c2, r3, c3) {
 }
 
 template ConnectFour() {
-    // private input signal representing the board
+    // private input: 2D array representing the 6x7 board state
     signal input board[6][7];
-    // winner of the game, either 1 or 2
+    // private input: identity of the winning player (0 for draw, 1 or 2 for player)
     signal input winner;
-    // array of arrays with the indexes of the four consecutive counters
+    // private input: 4x2 array containing the row/col indices of the winning line
     signal input coordinates[4][2];
-    // array with the indexes of the last move
+    // private input: 1x2 array containing the row/col indices of the last move
     signal input lastMove[2];
+    // public output: Poseidon hash of the base-3 packed board for state commitment
+    signal output boardHash;
+
 
     // 1 - cell value integrity
     component isZeroOneOrTwoCVI[6][7];
@@ -235,7 +239,7 @@ template ConnectFour() {
     isWinner * isRowZeroOneOrMOneSLC === 0;
     signal isColZeroOrOneSLC <== (deltaCol[0] + 1) * (deltaCol[0]);
     signal isColZeroOneOrMOneSLC <== isColZeroOrOneSLC * (deltaCol[0] - 1);
-    isWinner * isRowZeroOneOrMOneSLC === 0;
+    isWinner * isColZeroOneOrMOneSLC === 0;
 
     // ensure it's not a (0,0) step if there's a winner
     signal deltaRow2 <== deltaRow[0] * deltaRow[0];
@@ -305,32 +309,54 @@ template ConnectFour() {
     // 9 - final piece placement integrity
     component isLastMoveEmpty[5][7];
     component isAboveLastMoveEmpty[5][7];
-    component isLastMoveRow2[5][7];
-    component isLastMoveCol2[5][7];
-    signal doesLastMoveMatch2[5][7];
+    component isLastMoveRowFPPI[5][7];
+    component isLastMoveColFPPI[5][7];
+    signal doesLastMoveMatchFPPI[5][7];
     signal interLastMove[5][7];
     for (var row = 1; row < 6; row++) {
         for (var col = 0; col < 7; col++) {
-            isLastMoveEmpty[row -1][col] = IsZero();
-            isLastMoveEmpty[row -1][col].in <== board[row -1][col];
-            isAboveLastMoveEmpty[row -1][col] = IsZero();
-            isAboveLastMoveEmpty[row -1][col].in <== board[row - 1][col];
+            isLastMoveEmpty[row - 1][col] = IsZero();
+            isLastMoveEmpty[row - 1][col].in <== board[row][col];
 
-            isLastMoveRow2[row -1][col] = IsEqual();
-            isLastMoveRow2[row -1][col].in[0] <== row;
-            isLastMoveRow2[row -1][col].in[1] <== lastMove[0];
+            isAboveLastMoveEmpty[row - 1][col] = IsZero();
+            isAboveLastMoveEmpty[row - 1][col].in <== board[row - 1][col];
 
-            isLastMoveCol2[row -1][col] = IsEqual();
-            isLastMoveCol2[row -1][col].in[0] <== col;
-            isLastMoveCol2[row -1][col].in[1] <== lastMove[1];
+            isLastMoveRowFPPI[row - 1][col] = IsEqual();
+            isLastMoveRowFPPI[row - 1][col].in[0] <== row;
+            isLastMoveRowFPPI[row - 1][col].in[1] <== lastMove[0];
 
-            doesLastMoveMatch2[row -1][col] <== isLastMoveRow2[row -1][col].out * isLastMoveCol2[row -1][col].out;
+            isLastMoveColFPPI[row - 1][col] = IsEqual();
+            isLastMoveColFPPI[row - 1][col].in[0] <== col;
+            isLastMoveColFPPI[row - 1][col].in[1] <== lastMove[1];
+
+            doesLastMoveMatchFPPI[row - 1][col] <== isLastMoveRowFPPI[row - 1][col].out * isLastMoveColFPPI[row - 1][col].out;
 
             // if the last move cell has a value, its cell above must be empty
-            interLastMove[row -1][col] <== (1 - isLastMoveEmpty[row -1][col].out) * (isAboveLastMoveEmpty[row -1][col].out - 1);
-            interLastMove[row -1][col] * (doesLastMoveMatch2[row -1][col]) === 0;
+            interLastMove[row - 1][col] <== (1 - isLastMoveEmpty[row - 1][col].out) * (isAboveLastMoveEmpty[row - 1][col].out - 1);
+            interLastMove[row - 1][col] * (doesLastMoveMatchFPPI[row - 1][col]) === 0;
         }
     }
+
+    // 10 - state commitment
+    signal boardInOneNumber;
+    signal sums[43]; 
+    sums[0] <== 0;
+
+    var power = 1;
+    for (var row = 0; row < 6; row++) {
+        for (var col = 0; col < 7; col++) {
+            var idx = row * 7 + col;
+            // use base-3 packing to avoid collision since cell values are 0, 1, 2
+            sums[idx + 1] <== sums[idx] + board[row][col] * power;
+            power *= 3; 
+        }
+    }
+    boardInOneNumber <== sums[42];
+
+    component finalHasher = Poseidon(1);
+    finalHasher.inputs[0] <== boardInOneNumber;
+
+    boardHash <== finalHasher.out;
 }
 
 component main = ConnectFour();
